@@ -1,0 +1,12 @@
+#!/usr/bin/awk -f
+# Rounds numbers to the closest integer and prints them out on separate lines.
+# To append unit specify `round -v unit=<unit>` as an argument.
+NF == 1 {
+        print int($0 + 0.5) unit
+}
+
+NF > 1 {
+        n = split($0, arr,/(\s|\t|,)/)
+        for (i in arr)
+             print int(arr[i] + 0.5) unit
+}

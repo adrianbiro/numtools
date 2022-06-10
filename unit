@@ -1,0 +1,7 @@
+#!/usr/bin/awk -f
+# Specify and append unit with unit -v unit=<unit> as an argument.
+
+{
+        print $0 unit
+}
+

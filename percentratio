@@ -1,0 +1,17 @@
+#!/usr/bin/awk -f
+{
+    arr[NR] = $0
+    sum += $0
+    max = NF > max ? NF : max
+}
+
+END {   if (max > 1) {
+            printf "Expected 1 but got %g columns.\n", max
+            exit(1)
+        } else {
+            printf "%-10s %5s %.2f\n", "Nums:", "Percent ratio of total:", sum
+            for (i in arr)
+                printf("%-10.2f %5.1f\n"), arr[i], (100 * arr[i]) / sum
+        }
+
+}

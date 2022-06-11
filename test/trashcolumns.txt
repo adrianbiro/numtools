@@ -1,0 +1,14 @@
+A S D
+a 12 1.3274
+s 54 9.3547
+q +9 8.2
+P -80 -20
+ L +6 .2
+Y Y Y
+9 o o
+      
+O o o
+more more more 9
+l 
+ 
+p o o

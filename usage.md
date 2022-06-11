@@ -142,9 +142,41 @@ $ cat intervalnums.txt | interval -p | round -v unit=%
 -10%
 -112%
 ```
+## percentratio
+```bash
+$ cat test/onecolumn.txt
+6
+50
+30
+7
+$ cat test/onecolumn.txt | ./percent.awk 
+Nums:      Percent ratio of total: 93.00
+6.00         6.5
+50.00       53.8
+30.00       32.3
+7.00         7.5
+```
 
-
-
+## sumallcol
+```bash
+ cat test/trashcolumns.txt 
+A S D
+a 12 1.3274
+s 54 9.3547
+q +9 8.2
+P -80 -20
+ L +6 .2
+Y Y Y
+9 o o
+      
+O o o
+more more more 9
+l 
+ 
+p o o
+$ cat test/trashcolumns.txt | sumallcol.awk 
+--	1	-0.9179
+```
 
 
 

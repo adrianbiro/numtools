@@ -1,6 +1,14 @@
 #!/usr/bin/awk -f
 # Rounds numbers to the closest integer and prints them out on separate lines.
-# To append unit specify `round -v unit=<unit>` as an argument.
+# To append unit specify `round -v unit=<unit>` or just unit as an argument.
+BEGIN {
+        if (ARGC > 1) {
+            arg = ARGV[1];
+            delete ARGV[1];
+            unit = arg
+        }
+}
+
 NF == 1 {
         print int($0 + 0.5) unit
 }

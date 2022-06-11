@@ -52,18 +52,26 @@ just sum numbers
 * **Min-Max** Converts each data value to a value eg. between 0 and 100. `New value = (value – min) / (max – min) * 100`
 * **Mean Normalization** Scales values such that the mean of all values is 0 and std. dev. is 1. `New value = (value – mean) / (standard deviation)`
 
-### [round](./usage.md "## round")
+### [round](./usage.md#round=m)
 Rounds numbers to the closest integer and prints them out on separate lines.
 * **-v unit=unit** To append unit.
+* Or just unit **%** as an argument.
 
 ### [unit](./usage.md "## unit")
 Specify and append unit with unit as an argument.
 * **-v unit=unit** 
+* Or just unit **%** as an argument.
 
 ### interest
 generalize Awk function
 * **-v time**
 * **-v perc**
+
+### sumallcol [x]
+It will dynamically determine the schema of the table by examining the first or second line - if the first one is the header. If there is different number of columns in folowing rows, all that exceded are just ignored, and if there is less then set, it will sum them from the left most. So for corect results, use clean data. It check if value is numeric (float, fraction or integer) and then prevent from counting character strings onto final result.
+
+### percentratio [x]
+Calculate percent ratio of total. Expects one number per line
 
 ### [interval](./usage.md "## interval")
 Interval will calculate and print the numeric interval between one numberand the next one in an input stream. Default output with no argument is just this interval chage.

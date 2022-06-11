@@ -1,6 +1,13 @@
 #!/usr/bin/awk -f
-# Specify and append unit with unit -v unit=<unit> as an argument.
+# Specify and append unit with unit -v unit=<unit> or just unit as an argument.
 
+BEGIN {
+        if (ARGC > 1) {
+            arg = ARGV[1];
+            delete ARGV[1];
+            unit = arg
+        }
+}
 {
         print $0 unit
 }

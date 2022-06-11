@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+import sys
+from sys import stdin, stdout, stderr
+import re
+from datetime import datetime
+
+def get_dates():
+    try:
+        data = "".join([i for i in stdin])
+        data = re.split('[,\n\s]', data)
+        data = list(filter(None, data))
+        return data
+    except ValueError as e:
+        stderr.write(f"Invalid input value: {e}\nTry: {sys.argv[0]} --help\n")
+        exit(1)
+
+def sort_date(data):
+    return sorted(data, key=lambda t: datetime.strptime(t, '%Y-%m-%d'))
+
+def main():
+    data = sort_date(get_dates())
+    for i in data:
+        stdout.write(f"{i}\n")
+
+if __name__ == "__main__":
+    main()
+

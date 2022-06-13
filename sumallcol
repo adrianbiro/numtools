@@ -41,10 +41,10 @@ NR==start {
 END {
     for (i=1; i <= nfld; i++) {
         if (numcol[i])
-            printf("%g", sum[i])        
-        else                            
-            printf("--")                
-        printf(i < nfld ? "\t" : "\n")  
+            printf("%g", sum[i])
+        else
+            printf("--")
+        printf(i < nfld ? "\t" : "\n")
     }
 }
 # The idea, this one-liner can't handle irregularities like a

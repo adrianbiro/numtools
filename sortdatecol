@@ -1,0 +1,76 @@
+#!/usr/bin/awk -f
+function is_date(dt) {  # Check if it is valid ISO formated date
+    return (dt ~ /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)
+}
+
+function get_cmd(n) {    # Find executable for date sort.
+    n = "local variable"
+    "whereis sortdate" | getline str
+    close("whereis sortdate")
+    n = gsub("sortdate: ","",str)
+    return str ~ /lns$/? str: "./sortdate"
+
+}
+
+BEGIN {     # Set defaults if the user doesn't provide custom settings.
+    user_define = ARGC > 1? ARGV[1]: 1; delete ARGV[1];     # date column
+    start = !(H || h || heading)? 1: 2;                     # skip heading
+    # Column with dates as first argument, default 1
+    # Set -v (H=1|h=1|heading=1) to skip heading
+    # Set field separator -F","
+}
+
+NR == 1 { if(start != 1) headingrow = $0 }                  # save heading
+
+NR >= start { # append date to column to array for sort, if not date skip line
+    if (is_date($user_define)) {
+        lines[$user_define] = $0
+        dates_unsorted[i++] = $user_define
+    }
+}
+
+
+END {
+    cmd = get_cmd()                         # set executable for datesort
+    if (headingrow) print headingrow        # print skiped heading
+    for (i in dates_unsorted)
+            print dates_unsorted[i] |& cmd  # sort dates
+    close(cmd, "to")
+    while (cmd |& getline sorted) {
+        sorted_arr[j++] = sorted
+    }
+
+    for (k in sorted_arr) {
+        print lines[sorted_arr[k]]
+    }
+}
+
+# $ cat test/datescol.csv | sortdatecol -F"," -v h=1
+# Dates,Name,Num
+# 1994-06-07,Radek,4
+# 1998-06-08,Nana,8
+# 1998-07-08,Raman,87
+# 1999-06-07,Joshi,98
+# 1999-06-08,Goli,54
+# 1999-07-08,Locar,47
+# 2013-09-08,Lojzo,0
+# 2014-09-08,Aro,6
+# 2020-01-20,Myard,5
+# 2020-06-03,Bud,9
+# 2022-06-03,Bernard,4
+
+## unsorted file
+# $ cat test/datescol.csv
+# Dates,Name,Num
+# 1999-06-08,Goli,54
+# 2014-09-08,Aro,6
+# 1999-06-07,Joshi,98
+# 2022-06-03,Bernard,4
+# 1999-07-08,Locar,47
+# 2020-01-20,Myard,5
+# 1998-06-08,Nana,8
+# 2013-09-08,Lojzo,0
+# 1994-06-07,Radek,4
+# 2020-06-03,Bud,9
+# 1998-07-08,Raman,87
+

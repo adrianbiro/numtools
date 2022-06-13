@@ -1,6 +1,7 @@
 # Usage of utils
 [Main site](./README.md)
 ## sortdate
+it is helper function for *sortdatecol*
 ```bash
 $ cat datesISO.txt 
 1999-06-08
@@ -37,6 +38,66 @@ $ cat datesISO.txt | sortdate
 2022-04-02
 2022-06-03
 ```
+## sortdatecol
+```bash
+$ cat test/datescol.csv 
+Dates,Name,Num
+1999-06-08,Goli,54
+2014-09-08,Aro,6
+1999-06-07,Joshi,98
+2022-06-03,Bernard,4
+1999-07-08,Locar,47
+2020-01-20,Myard,5
+1998-06-08,Nana,8
+2013-09-08,Lojzo,0
+1994-06-07,Radek,4
+2020-06-03,Bud,9
+1998-07-08,Raman,87
+
+# cat test/datescol.csv | sortdatecol -F"," -v h=1
+Dates,Name,Num
+1994-06-07,Radek,4
+1998-06-08,Nana,8
+1998-07-08,Raman,87
+1999-06-07,Joshi,98
+1999-06-08,Goli,54
+1999-07-08,Locar,47
+2013-09-08,Lojzo,0
+2014-09-08,Aro,6
+2020-01-20,Myard,5
+2020-06-03,Bud,9
+2022-06-03,Bernard,4
+
+$ awk -F"," '{printf "%s,%s,%s\n", $2, $1, $3}' test/datescol.csv | sortdatecol -F"," -v H=1 2
+Name,Dates,Num
+Radek,1994-06-07,4
+Nana,1998-06-08,8
+Raman,1998-07-08,87
+Joshi,1999-06-07,98
+Goli,1999-06-08,54
+Locar,1999-07-08,47
+Lojzo,2013-09-08,0
+Aro,2014-09-08,6
+Myard,2020-01-20,5
+Bud,2020-06-03,9
+Bernard,2022-06-03,4
+
+$ awk -F"," '{print $2, $3, $1}' test/datescol.csv | sortdatecol -v H=1 3
+Name Num Dates
+Radek 4 1994-06-07
+Nana 8 1998-06-08
+Raman 87 1998-07-08
+Joshi 98 1999-06-07
+Goli 54 1999-06-08
+Locar 47 1999-07-08
+Lojzo 0 2013-09-08
+Aro 6 2014-09-08
+Myard 5 2020-01-20
+Bud 9 2020-06-03
+Bernard 4 2022-06-03
+
+```
+
 ## interval
 ```bash
 $ cat intervalnums.txt 
@@ -174,8 +235,21 @@ more more more 9
 l 
  
 p o o
+$ cat test/ncolumns
+IN A D F G
+A 1 2 -3
+R -9 5 4
+E 6 2.5 -9
+X X -22 X
+9 9 9 9
 $ cat test/trashcolumns.txt | sumallcol.awk 
 --	1	-0.9179
+$ cat test/ncolumns.txt | sumallcol 
+--	7	-3.5	1
+
+# for cat datescol.csv look in sortdatecol 
+$ awk -F"," '{print $2, $3, $1}' test/datescol.csv | ./sumallcol 
+--	322	--
 ```
 
 

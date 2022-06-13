@@ -23,15 +23,11 @@ This outlines criteria that the numtools should eventually meet.
 
 [usage](./usage.md)
 
-### numcleaner
-It will preprocess data for other utilities from file or stdin and send them to stdout. Extract numbers from text and preserve lines
 
-### splitnum 
-Don't process complete numbers, process each numeric character individually. (part of numcleaner?)
 
-### selectnum 
-recognize and select numbers from text, with exponent notation, etc (awk function) Just preprocesor for that output just numbers.
-* `-r  --range 20-35` select just number in range
+
+
+
 ### convertroman 
 Roman to normal etc.
 
@@ -56,6 +52,22 @@ generalize Awk function
 -----------------------------------------------------
 # somehow DONE
 
+### selectnum 
+Selects numbers in range 
+* `2 90` in range
+* `- 90` for no limit on bottom 
+* `2 -` from 2 no top limit 
+* `- -` no limit 
+
+
+### [splitnum](./usage.md "## splitnum")
+Don't process complete numbers, process each numeric character individually. 
+
+### [numcleaner](./usage.md "## numcleaner")
+It will preprocess data for other utilities from files or stdin and send them to stdout. It extracts numbers from text and preserve lines. 
+* `-F","` for field separator. Default is space.
+* `OFS=","` for output field separator Default is space.
+
 ### [sortdate](./usage.md "## sortdate")
 Sort iso formated dates %Y-%m-%d. It is helper function for *sortdatecoll*
 
@@ -66,8 +78,8 @@ Sort iso formated dates %Y-%m-%d. It is helper function for *sortdatecoll*
 
 ### [round](./usage.md#round=m)
 Rounds numbers to the closest integer and prints them out on separate lines.
-* `-v unit=unit` To append unit.
-* Or just unit `%` as an argument.
+* `-v unit=unit` To append unit. Or just unit `%` as an argument.
+* To round down specify `round -v m=1` or one of `minus|MINUS|m|M=1`
 
 ### [unit](./usage.md "## unit")
 Specify and append unit with unit as an argument.
@@ -89,6 +101,6 @@ Interval will calculate and print the numeric interval between one numberand the
 ### [median](./usage.md "## median")
 Median will calculate the median value from a provided list. Default output with no argument is Median.
 * `-h` of `--high` To get high median
-* `-l` `low` To get low median
+* `-l` `--low` To get low median
 * `-v` `--verbose` To get all medians.
 

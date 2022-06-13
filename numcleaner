@@ -1,0 +1,32 @@
+#!/usr/bin/awk -f
+function is_num(n) {
+    sign = "[+-]?"
+    decimal = "[0-9]+[.]?[0-9]"
+    digit = "[0-9]"
+    fraction = "[.][0-9]"
+    number = "^" sign "(" decimal "|" fraction "|" digit ")" "+$"
+    return (n ~ number)  # ^[+-]?([0-9]+[.]?[0-9]|[.][0-9]|[0-9])+$
+}
+
+{
+    for (i=1; i <= NF; i++)
+        if (is_num($i))
+            printf("%g%s", $i, i < NF ? OFS : "\n")     # default OFS is space
+}                                                       # OFS=","
+
+# $ cat test/numtextcol.csv
+# Header,s,d,qwe,wer,tett,qwe
+# 1999,06,08,123,987,text,654
+# 2014,09,08,123,987,text,654
+# 1999,06,07,123,987,text,654
+# --snip--
+# $ cat test/numtextcol.csv | numcleaner -F","
+# 1999 6 8 123 987 654
+# 2014 9 8 123 987 654
+# 1999 6 7 123 987 654
+# --snip--
+# $ cat test/numtextcol.csv | numcleaner -F"," OFS=","
+# 1999,6,8,123,987,654
+# 2014,9,8,123,987,654
+# 1999,6,7,123,987,654
+# --snip

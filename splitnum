@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+import sys
+from sys import stdin, stdout, stderr
+import re
+
+def get_data():
+    try:
+        data = "".join([i for i in stdin])
+        data = re.split('[,\n\s]', data)
+        data = list(filter(None, data))
+        return data
+    except ValueError as e:
+        stderr.write(f"Invalid input value: {e}\n")
+        exit(1)
+
+def main():
+    data = get_data()
+    for i in data:
+        for j in str(i):
+            if j.isdigit():             # filter out +|.|-
+                stdout.write(f"{j}\n")
+
+if __name__ == "__main__":
+    main()
+

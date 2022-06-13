@@ -1,0 +1,37 @@
+#!/usr/bin/awk -f
+
+BEGIN { if (ARGC > 1) {
+            from = ARGV[1];
+            to = ARGV[2];
+            delete ARGV[1];
+            delete ARGV[2];
+        }
+}
+
+function range(n){
+    if (from != "-" && to != "-" && to) {
+        if (n >= from && n <= to)
+            return n
+    } else if (from == "-" && to != "-" && to) {
+        if (n <= to)
+            return n
+    } else if (from != "-" && to == "-" && to) {
+        if (n >= from)
+            return n
+    } else
+        return n
+}
+
+
+
+NF == 1 {
+    if (range($0))
+        print $0
+}
+
+NF > 1 {
+        n = split($0, arr,/(\s|\t|,)/)
+        for (i in arr)
+             if (range(arr[i]))
+                print arr[i]
+}

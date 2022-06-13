@@ -1,6 +1,17 @@
 #!/usr/bin/awk -f
 # Rounds numbers to the closest integer and prints them out on separate lines.
 # To append unit specify `round -v unit=<unit>` or just unit as an argument.
+# To round down specify `round -v m=1` or one of `(minus|MINUS|m|M)=1`
+
+function round(n){
+    if (minus || MINUS|| m || M) {
+        n = int(n - 0.5)
+    } else {
+        n = int(n + 0.5)
+    }
+    return n unit
+}
+
 BEGIN {
         if (ARGC > 1) {
             arg = ARGV[1];
@@ -10,11 +21,11 @@ BEGIN {
 }
 
 NF == 1 {
-        print int($0 + 0.5) unit
+        print round($0)
 }
 
 NF > 1 {
         n = split($0, arr,/(\s|\t|,)/)
         for (i in arr)
-             print int(arr[i] + 0.5) unit
+            print round(arr[i])
 }

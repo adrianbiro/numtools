@@ -467,6 +467,62 @@ $ numcleaner test/*.txt | selectnum - -
 [all numbers]
 ```
 
+### average
+```bash
+$ numcleaner test/*.txt | average --all
+23.6106578125
+$ numcleaner test/*.txt | average
+1
+5
+4.083333333333333
+2
+3
+8
+98
+45
+48.75
+30.5
+71
+60.5
+11
+200
+94
+45
+7
+0
+0
+-0.16666666666666666
+2.8
+6
+50
+30
+7
+6.6637
+31.67735
+8.6
+-50
+3.1
+9
+```
+
+### sum
+```bash
+numcleaner test/*.txt | numsum --all
+1511.0821
+
+numcleaner test/*.txt | numsum | head
+1
+5
+24.5
+2
+3
+8
+98
+45
+195
+122
+```
+
 
 
 

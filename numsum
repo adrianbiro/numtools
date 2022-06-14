@@ -1,0 +1,57 @@
+#!/usr/bin/python3
+import argparse
+import sys
+from sys import stdin, stdout, stderr
+import re
+
+def per_line():
+    try:
+        data = [i.replace("\n","").split(" ") for i in stdin]
+        sum_list = []
+        for i in data:
+            try:
+                data = [int(j) for j in i]
+            except ValueError:
+                data = [float(j) for j in i]
+            sum_list.append(sum(data))
+        return sum_list
+    except ValueError as e:
+        stderr.write(f"Invalid input value: {e}\nTry: {sys.argv[0]} --help\n")
+        exit(1)
+
+def total():
+    try:
+        data = "".join([i for i in stdin])
+        data = re.split('[,\n\s]', data)
+        data = list(filter(None, data))
+        try:
+            data = [int(i) for i in data]
+        except ValueError:
+            data = [float(i) for i in data]
+        return sum(data)
+    except ValueError as e:
+        stderr.write(f"Invalid input value: {e}\nTry: {sys.argv[0]} --help\n")
+        exit(1)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+            description="Get the sum of the numbers on the line.")
+    parser.add_argument('-a','--all',
+            help="Compute the sum from all numbers, not the per line.",
+            action="store_true")
+    args = parser.parse_args()
+
+    if args.all:
+        data = total()
+    else:
+        data = per_line()
+    try:
+        for i in data:
+            stdout.write(f"{i}\n")
+    except TypeError:
+        stdout.write(f"{data}\n")
+
+if __name__ == "__main__":
+    main()
+

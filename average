@@ -1,0 +1,58 @@
+#!/usr/bin/python3
+import argparse
+import sys
+from sys import stdin, stdout, stderr
+import re
+import statistics
+
+def avg_per_line():
+    try:
+        data = [i.replace("\n","").split(" ") for i in stdin]
+        average = []
+        for i in data:
+            try:
+                data = [int(j) for j in i]
+            except ValueError:
+                data = [float(j) for j in i]
+            average.append(statistics.mean(data))
+        return average
+    except ValueError as e:
+        stderr.write(f"Invalid input value: {e}\nTry: {sys.argv[0]} --help\n")
+        exit(1)
+
+def avg_total():
+    try:
+        data = "".join([i for i in stdin])
+        data = re.split('[,\n\s]', data)
+        data = list(filter(None, data))
+        try:
+            data = [int(i) for i in data]
+        except ValueError:
+            data = [float(i) for i in data]
+        return statistics.mean(data)
+    except ValueError as e:
+        stderr.write(f"Invalid input value: {e}\nTry: {sys.argv[0]} --help\n")
+        exit(1)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+            description="Get the average of the numbers on the line.")
+    parser.add_argument('-a','--all',
+            help="Compute the average from all numbers, not the average per line.",
+            action="store_true")
+    args = parser.parse_args()
+
+    if args.all:
+        data = avg_total()
+    else:
+        data = avg_per_line()
+    try:
+        for i in data:
+            stdout.write(f"{i}\n")
+    except TypeError:
+        stdout.write(f"{data}\n")
+
+if __name__ == "__main__":
+    main()
+

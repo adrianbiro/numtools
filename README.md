@@ -34,13 +34,6 @@ Roman to normal etc.
 ### sortroman 
 A utility for sorting numbers in mixed notations. Roman next others
 
-### numsum 
-just sum numbers
-* `-l`   sum nubers on lines separatly
-
-### average 
-* `-l`  lines separatly
-
 ### normalize 
 * `Min-Max` Converts each data value to a value eg. between 0 and 100. `New value = (value – min) / (max – min) * 100`
 * `Mean Normalization` Scales values such that the mean of all values is 0 and std. dev. is 1. `New value = (value – mean) / (standard deviation)`
@@ -52,7 +45,15 @@ generalize Awk function
 -----------------------------------------------------
 # somehow DONE
 
-### selectnum 
+### [numsum](./usage.md "## numsum")
+Get the sum of the numbers on the line.
+* `-a` or `--all` Compute the sum from all numbers, not the per line.
+
+### [average](./usage.md "## average")
+Get the average of the numbers on the line.
+* `-a` or `--all` Compute the average from all numbers, not the average per line.
+
+### [selectnum](./usage.md "## selectnum")
 Selects numbers in range 
 * `2 90` in range
 * `- 90` for no limit on bottom 

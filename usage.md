@@ -128,7 +128,7 @@ $ cat intervalnums.txt | interval -p
 80.0
 -11.11
 -112.5
-cat intervalnums.txt | interval -v
+cat intervalnums.txt | interval -V
 Numbers:	Interval:	Percent Change:
 1.0		    0.0		    0.0%
 5.0		    4.0		    400.0%
@@ -162,14 +162,14 @@ cat mediantest.txt
 7
 
 
-$ cat mediantest.txt | interval -p | median -v
+$ cat mediantest.txt | interval -p | median -V
 Low median: -2.86 Median: -1.43 High Median: 0.0
-$ cat mediantest.txt | interval -p | median -l
+$ cat mediantest.txt | interval -p | median -L
 -2.86
 $ cat mediantest.txt | interval -p | median 
 -1.43
-$ cat mediantest.txt | interval -p | median -h
--1.43
+$ cat mediantest.txt | interval -p | median -H
+0.0
 ```
 ## unit
 ```bash

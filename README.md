@@ -16,7 +16,7 @@ This outlines criteria that the numtools should eventually meet.
 |option| meaning|
 | --- | ---|
 |`-h` | -- provide helpful usage information |
-|`-v` | -- Be verbose |
+|`-V` | -- Be verbose |
 
 
 ## Individual program goals 
@@ -97,11 +97,11 @@ Calculate percent ratio of total. Expects one number per line
 ### [interval](./usage.md "## interval")
 Interval will calculate and print the numeric interval between one numberand the next one in an input stream. Default output with no argument is just this interval chage.
 * `-p`  To get just percent change. 
-* `-v`  To get full overwiev of numbers with interval and percent change. 
+* `-V`  To get full overwiev of numbers with interval and percent change. 
 
 ### [median](./usage.md "## median")
 Median will calculate the median value from a provided list. Default output with no argument is Median.
-* `-h` of `--high` To get high median
-* `-l` `--low` To get low median
-* `-v` `--verbose` To get all medians.
+* `-H` of `--high` To get high median
+* `-H` `--low` To get low median
+* `-V` `--verbose` To get all medians.
 

@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import argparse
 import sys
 from sys import stdin, stdout, stderr
 import re
@@ -49,28 +50,26 @@ def single_data(data):
     for i in data:
         stdout.write(f"{i}\n")
 
-def _help():
-    print("""
-Interval will calculate and print the numeric interval
-between one numberand the next one in an input stream.
-
-Default output with no argument is just this interval chage.
-
-[-h | --help]       To get thist message.
-[-p | --percent]    To get just percent change.
-[-v | --verbose]    To get full overwiev of numbers with interval and percent change.
-            """)
-    exit(0)
 
 def main():
+    parser = argparse.ArgumentParser(
+            description="Interval will calculate and print the numeric interval \
+                    between one numberand the next one in an input stream.")
+    parser.add_argument('-p',
+            '--percent',help="To get just percent change",
+            action="store_true")
+    parser.add_argument('-V',
+            '--verbose',
+            help="To get full overwiev of numbers with interval and percent change.",
+            action="store_true")
+    args = parser.parse_args()
+
     data, interval_data, percent_data = interval(get_data())
-    verbose_data = list(zip(data ,interval_data, percent_data))  # list of tuples
-    if bool(re.search(r'(-v|--verbose)', str(sys.argv))):
-        verbose(verbose_data)
-    elif bool(re.search(r'(-p|--percent)', str(sys.argv))):
+
+    if args.verbose:
+        verbose(list(zip(data ,interval_data, percent_data))) # list of tuples
+    elif args.percent:
         single_data(percent_data)
-    elif bool(re.search(r'(-h|--help)', str(sys.argv))):
-        _help()
     else:
         single_data(interval_data)
 

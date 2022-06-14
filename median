@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import argparse
 import sys
 from sys import stdin, stdout, stderr
 import re
@@ -20,33 +21,32 @@ def get_data():
 
 
 
-def _help():
-    print("""
-Median will calculate the median value from a provided list.
-
-Default output with no argument is Median.
-
-[--help]         To get thist message.
-[-h | --high]    To get high median of data.
-[-l | --low]     To low medianof data.
-[-v | --verbose] To get all medians.
-            """)
-    exit(0)
-
 def main():
+    parser = argparse.ArgumentParser(
+            description="Median will calculate the median value from a provided list.")
+    parser.add_argument('-H',
+            '--high',help="To get high median of data.",
+            action="store_true")
+    parser.add_argument('-L',
+            '--low',help="To get low median of data.",
+            action="store_true")
+    parser.add_argument('-V',
+            '--verbose',
+            help="To get all medians.",
+            action="store_true")
+    args = parser.parse_args()
+
     data = get_data()
     ml = statistics.median_low(data)
     me = statistics.median(data)
     mh = statistics.median_high(data)
 
-    if bool(re.search(r'(-v|--verbose)', str(sys.argv))):
+    if args.verbose:
         stdout.write(f"Low median: {ml} Median: {me} High Median: {mh}\n")
-    elif bool(re.search(r'(-l|--low)', str(sys.argv))):
+    elif args.low:
         stdout.write(f"{ml}\n")
-    elif bool(re.search(r'(-h\ |--high)', str(sys.argv))):
+    elif args.high:
         stdout.write(f"{mh}\n")
-    elif bool(re.search(r'--help', str(sys.argv))):
-        _help()
     else:
         stdout.write(f"{me}\n")
 

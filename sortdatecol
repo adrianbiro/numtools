@@ -8,7 +8,7 @@ function get_cmd(n) {    # Find executable for date sort.
     "whereis sortdate" | getline str
     close("whereis sortdate")
     n = gsub("sortdate: ","",str)
-    return str ~ /lns$/? str: "./sortdate"
+    return str ~ /sortdate$/? str: "./sortdate"
 
 }
 

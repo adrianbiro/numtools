@@ -1,0 +1,100 @@
+#!/usr/bin/awk -f
+function is_roman(str) {  # for detail check roman2int
+    return (str  ~ /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/ && /^[^$]/)
+}
+
+function rom2int(s, rom) {
+    rom["I"]=1
+    rom["V"]=5
+    rom["X"]=10
+    rom["L"]=50
+    rom["C"]=100
+    rom["D"]=500
+    rom["M"]=1000
+    return rom[s]
+}
+
+function replace(str) {
+    sub(/IV/, "IIII", str)
+    sub(/IX/, "VIIII", str)
+    sub(/XL/, "XXXX", str)
+    sub(/XC/, "LXXXX", str)
+    sub(/CD/, "CCCC", str)
+    sub(/CM/, "DCCCC", str)
+    return str
+}
+
+function addroman(string, n, arr, i, total) {
+    n = split(replace(string), arr,"")
+    for (i=1; i<=n; i++) {
+        total += rom2int(arr[i])
+    }
+    return total
+}
+
+
+function help() {
+    print "Usage:\ncat file.csv | multisortcoll [n] | sort -t"," +0n +3nr"
+    print "\t[n] number of column with roman numerals. Default is 1"
+    print "\tsort -t\",\", fied separator"
+    print "\t+0n first field as fiers key, numeric sort"
+    print "\t+3nr forth field as second key, numeric revers sort"
+}
+
+
+BEGIN {
+    user_define = ARGC > 1? ARGV[1]: 1; delete ARGV[1];     # roman column
+    # Column with roman numbers as first argument, default 1
+    FS = ","
+   # if h or help, not -h nor --help, it invokes AWK help
+    if(user_define ~ /(h|help)/) {
+        help()
+        exit(2)
+    }
+}
+# heading
+NR == 1 && !is_roman($user_define) { printf "X,"; print $0 }
+
+NR >= start {
+    if (is_roman($user_define)) {
+        printf "%s,", addroman($user_define)
+        print $0
+    }
+}
+
+## Usage
+# $ cat test/multisortcoll-rom.csv | multicollsortroman 2 | sort -t"," +0n +3nr
+# X,Name,CategoryId,Price,Stock
+# 2,Truss,II,0.47,9.02
+# 2,Phillips,II,0.42,7.4
+# 4,Fillister,IV,0.09,14.01
+# 5,One_way_Slotted,V,0.98,1.24
+# 5,Slotted,V,0.65,5.4
+# 5,Square,V,0.32,13.02
+# 7,Torx,VII,0.46,4.2
+# 12,Hex,XII,0.95,19.1
+
+# $ cat test/multisortcoll-rom.csv
+# Name,CategoryId,Price,Stock
+# Slotted,V,0.65,5.4
+# Phillips,II,0.42,7.4
+# Hex,XII,0.95,19.1
+# Square,V,0.32,13.02
+# Torx,VII,0.46,4.2
+# One_way_Slotted,V,0.98,1.24
+# Truss,II,0.47,9.02
+# Fillister,IV,0.09,14.01
+
+# $ cat test/multisortcoll-rom.csv \
+#   | awk -F"," 'NF{printf"%s,%s,%s,%s\n", $2,$1,$3,$4}' \
+#   | multicollsortroman \
+#   | sort -t, +0n +4nr
+# X,CategoryId,Name,Price,Stock
+# 2,II,Truss,0.47,9.02
+# 2,II,Phillips,0.42,7.4
+# 4,IV,Fillister,0.09,14.01
+# 5,V,Square,0.32,13.02
+# 5,V,Slotted,0.65,5.4
+# 5,V,One_way_Slotted,0.98,1.24
+# 7,VII,Torx,0.46,4.2
+# 12,XII,Hex,0.95,19.1

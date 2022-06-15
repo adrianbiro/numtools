@@ -25,15 +25,6 @@ This outlines criteria that the numtools should eventually meet.
 
 
 
-
-
-
-### convertroman 
-Roman to normal etc.
-
-### sortroman 
-A utility for sorting numbers in mixed notations. Roman next others
-
 ### normalize 
 * `Min-Max` Converts each data value to a value eg. between 0 and 100. `New value = (value – min) / (max – min) * 100`
 * `Mean Normalization` Scales values such that the mean of all values is 0 and std. dev. is 1. `New value = (value – mean) / (standard deviation)`
@@ -44,6 +35,13 @@ generalize Awk function
 * `-v perc`
 -----------------------------------------------------
 # somehow DONE
+
+### [multicollsortroman](./usage.md "## multicollsortroman)
+`cat file.csv | multisortcoll 2 | sort -t","  +0n +3nr`
+It is a wrapper for **roman2int** to facilitate working with CSV files. It expects roman numerals in the first column, to set a custom column with a number as an argument. Arguments for `sort` `-t` field separator, sort keys from 0 index `+0n` numeric sort first column `+3nr` numeric reverse sort as a secondary key.
+
+### [roman2int](./usage.md "## roman2int")
+Roman numerals to Arabic. It filters valid roman numbers. It is part of the **multicollsortroman** utility.
 
 ### [numsum](./usage.md "## numsum")
 Get the sum of the numbers on the line.

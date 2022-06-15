@@ -522,9 +522,68 @@ numcleaner test/*.txt | numsum | head
 195
 122
 ```
+### roman2int
+```bash
+$ echo -e "IX\nX\nXL\nMCMIV\nXLIX\nCDXC\nNONVALID\nIXI\nLC\nVALID\nCL" | roman2int 
+9
+10
+40
+1904
+49
+490
+150
 
+$ echo -e "IX\nX\nXL\nMCMIV\nXLIX\nCDXC\nNONVALID\nIXI\nLC\nVALID\nCL" 
+IX
+X
+XL
+MCMIV
+XLIX
+CDXC
+NONVALID
+IXI
+LC
+VALID
+CL
 
+```
 
+### multicollsortroman
+```bash
+$ cat test/multisortcoll-rom.csv 
+Name,CategoryId,Price,Stock
+Slotted,V,0.65,5.4
+Phillips,II,0.42,7.4
+Hex,XII,0.95,19.1
+Square,V,0.32,13.02
+Torx,VII,0.46,4.2
+One_way_Slotted,V,0.98,1.24
+Truss,II,0.47,9.02
+Fillister,IV,0.09,14.01
+[blank line]
+
+$ cat test/multisortcoll-rom.csv | multicollsortroman 2 | sort -t, +0n +3nr
+X,Name,CategoryId,Price,Stock
+2,Truss,II,0.47,9.02
+2,Phillips,II,0.42,7.4
+4,Fillister,IV,0.09,14.01
+5,One_way_Slotted,V,0.98,1.24
+5,Slotted,V,0.65,5.4
+5,Square,V,0.32,13.02
+7,Torx,VII,0.46,4.2
+12,Hex,XII,0.95,19.1
+
+$ cat test/multisortcoll-rom.csv | awk -F"," 'NF{printf"%s,%s,%s,%s\n", $2,$1,$3,$4}' | multicollsortroman | sort -t, +0n +4nr
+X,CategoryId,Name,Price,Stock
+2,II,Truss,0.47,9.02
+2,II,Phillips,0.42,7.4
+4,IV,Fillister,0.09,14.01
+5,V,Square,0.32,13.02
+5,V,Slotted,0.65,5.4
+5,V,One_way_Slotted,0.98,1.24
+7,VII,Torx,0.46,4.2
+12,XII,Hex,0.95,19.1
+```
 
 
 

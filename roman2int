@@ -11,6 +11,7 @@ function rom2int(s, rom) {
     return rom[s]
 }
 
+
 # For some reason, versions that compare former substring for subtraction
 # are error-prone in AWK, but  in python3 and C that versions work well.
 # I found this idea in JAVA implementation, and it is  simlest to implement
@@ -24,7 +25,6 @@ function replace(str) {
     sub(/CM/, "DCCCC", str)
     return str
 }
-
 
 
 function addroman(string, n, arr, i, total) { # local vars, just string as arg

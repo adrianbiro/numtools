@@ -36,9 +36,10 @@ generalize Awk function
 -----------------------------------------------------
 # somehow DONE
 
-### [multicollsortroman](./usage.md "## multicollsortroman)
+### [multicollsortroman](./usage.md "## multicollsortroman")
 `cat file.csv | multisortcoll 2 | sort -t","  +0n +3nr`
 It is a wrapper for **roman2int** to facilitate working with CSV files. It expects roman numerals in the first column, to set a custom column with a number as an argument. Arguments for `sort` `-t` field separator, sort keys from 0 index `+0n` numeric sort first column `+3nr` numeric reverse sort as a secondary key.
+* `h` or `help` for help, not `-h` nor `--help`
 
 ### [roman2int](./usage.md "## roman2int")
 Roman numerals to Arabic. It filters valid roman numbers. It is part of the **multicollsortroman** utility.

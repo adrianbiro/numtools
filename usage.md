@@ -1,9 +1,45 @@
 # Usage of utils
 [Main site](./README.md)
+## num2ex
+```bash
+$ for((i=10000; i<=100000000; i=i+3218979)); do echo $i |./num2ex; done
+ 0.100E+05
+ 0.323E+07
+ 0.645E+07
+ 0.967E+07
+ 0.129E+08
+ 0.161E+08
+ 0.193E+08
+ 0.225E+08
+ 0.258E+08
+ 0.290E+08
+ 0.322E+08
+ 0.354E+08
+ 0.386E+08
+ 0.419E+08
+ 0.451E+08
+ 0.483E+08
+ 0.515E+08
+ 0.547E+08
+ 0.580E+08
+ 0.612E+08
+ 0.644E+08
+ 0.676E+08
+ 0.708E+08
+ 0.740E+08
+ 0.773E+08
+ 0.805E+08
+ 0.837E+08
+ 0.869E+08
+ 0.901E+08
+ 0.934E+08
+ 0.966E+08
+ 0.998E+08
+```
 ## sortdate
 it is helper function for *sortdatecol*
 ```bash
-$ cat datesISO.txt 
+$ cat datesISO.txt
 1999-06-08
 2014-09-08
 1999-06-07
@@ -19,7 +55,7 @@ $ cat datesISO.txt
     1929-06-08  2004-09-21,
 1999-03-01   2022-04-02,
 1992-11-09
-$ cat datesISO.txt | sortdate 
+$ cat datesISO.txt | sortdate
 1929-06-08
 1992-11-09
 1994-06-07
@@ -40,7 +76,7 @@ $ cat datesISO.txt | sortdate
 ```
 ## sortdatecol
 ```bash
-$ cat test/datescol.csv 
+$ cat test/datescol.csv
 Dates,Name,Num
 1999-06-08,Goli,54
 2014-09-08,Aro,6
@@ -100,11 +136,11 @@ Bernard 4 2022-06-03
 
 ## interval
 ```bash
-$ cat intervalnums.txt 
+$ cat intervalnums.txt
 1
 5
 12 1 3.5 4	5	5,9,8 -1
-$  cat intervalnums.txt | interval 
+$  cat intervalnums.txt | interval
 0.0
 4.0
 7.0
@@ -145,16 +181,16 @@ Numbers:	Interval:	Percent Change:
 
 ## median
 ```bash
-cat mediantest.txt 
-2 
-3 
-8 
-98 
-45 
+cat mediantest.txt
+2
+3
+8
+98
+45
 25 78 57 35
 34 42 12 34
 98 45 57 84
-87 56 78 21 
+87 56 78 21
 11
  200
 94
@@ -166,7 +202,7 @@ $ cat mediantest.txt | interval -p | median -V
 Low median: -2.86 Median: -1.43 High Median: 0.0
 $ cat mediantest.txt | interval -p | median -L
 -2.86
-$ cat mediantest.txt | interval -p | median 
+$ cat mediantest.txt | interval -p | median
 -1.43
 $ cat mediantest.txt | interval -p | median -H
 0.0
@@ -178,7 +214,7 @@ $ cat mediantest.txt | interval -p | median -h | unit -v unit=%
 ```
 ## round
 ```bash
-$ cat intervalnums.txt | interval -p | round 
+$ cat intervalnums.txt | interval -p | round
 0
 400
 140
@@ -222,7 +258,7 @@ $ cat test/onecolumn.txt
 50
 30
 7
-$ cat test/onecolumn.txt | ./percent.awk 
+$ cat test/onecolumn.txt | ./percent.awk
 Nums:      Percent ratio of total: 93.00
 6.00         6.5
 50.00       53.8
@@ -232,7 +268,7 @@ Nums:      Percent ratio of total: 93.00
 
 ## sumallcol
 ```bash
- cat test/trashcolumns.txt 
+ cat test/trashcolumns.txt
 A S D
 a 12 1.3274
 s 54 9.3547
@@ -241,11 +277,11 @@ P -80 -20
  L +6 .2
 Y Y Y
 9 o o
-      
+
 O o o
 more more more 9
-l 
- 
+l
+
 p o o
 $ cat test/ncolumns
 IN A D F G
@@ -254,20 +290,20 @@ R -9 5 4
 E 6 2.5 -9
 X X -22 X
 9 9 9 9
-$ cat test/trashcolumns.txt | sumallcol.awk 
+$ cat test/trashcolumns.txt | sumallcol.awk
 --	1	-0.9179
-$ cat test/ncolumns.txt | sumallcol 
+$ cat test/ncolumns.txt | sumallcol
 --	7	-3.5	1
 
-# for cat datescol.csv look in sortdatecol 
-$ awk -F"," '{print $2, $3, $1}' test/datescol.csv | ./sumallcol 
+# for cat datescol.csv look in sortdatecol
+$ awk -F"," '{print $2, $3, $1}' test/datescol.csv | ./sumallcol
 --	322	--
 ```
 
 ## umcleaner
 
 ```bash
-$ cat test/numtextcol.csv 
+$ cat test/numtextcol.csv
 Header,s,d,qwe,wer,tett,qwe
 1999,06,08,123,987,text,654
 2014,09,08,123,987,text,654
@@ -283,7 +319,7 @@ Header,s,d,qwe,wer,tett,qwe
 
 
 
-$ cat test/numtextcol.csv | numcleaner -F","  
+$ cat test/numtextcol.csv | numcleaner -F","
 1999 6 8 123 987 654
 2014 9 8 123 987 654
 1999 6 7 123 987 654
@@ -297,7 +333,7 @@ $ cat test/numtextcol.csv | numcleaner -F","
 1998 7 8 123 987 654
 
 
-$ cat test/numtextcol.csv | numcleaner -F"," OFS="," 
+$ cat test/numtextcol.csv | numcleaner -F"," OFS=","
 1999,6,8,123,987,654
 2014,9,8,123,987,654
 1999,6,7,123,987,654
@@ -339,7 +375,7 @@ sed 's/,/\ /g' test/numtextcol.csv | numcleaner
 ```
 **numcleaner** with multiple files as argument
 ```bash
-$ numcleaner OFS="," test/*.txt 
+$ numcleaner OFS="," test/*.txt
 1
 5
 12,1,3.5,4,5,-1
@@ -372,7 +408,7 @@ $ numcleaner OFS="," test/*.txt
 6,0.2
 9,9
 
-$ numcleaner test/*.txt 
+$ numcleaner test/*.txt
 1
 5
 12 1 3.5 4 5 -1
@@ -444,11 +480,11 @@ $ numcleaner test/*.txt | splitnum
 ### selectnum
 ```bash
 
-$ numcleaner test/*.txt | selectnum - -20 
+$ numcleaner test/*.txt | selectnum - -20
 -22
 -80
 -20
-$ numcleaner test/*.txt | selectnum 5 7 
+$ numcleaner test/*.txt | selectnum 5 7
 5
 5
 7
@@ -457,7 +493,7 @@ $ numcleaner test/*.txt | selectnum 5 7
 6
 7
 6
-$ numcleaner test/*.txt | selectnum - -7 
+$ numcleaner test/*.txt | selectnum - -7
 -9
 -9
 -22
@@ -524,7 +560,7 @@ numcleaner test/*.txt | numsum | head
 ```
 ### roman2int
 ```bash
-$ echo -e "IX\nX\nXL\nMCMIV\nXLIX\nCDXC\nNONVALID\nIXI\nLC\nVALID\nCL" | roman2int 
+$ echo -e "IX\nX\nXL\nMCMIV\nXLIX\nCDXC\nNONVALID\nIXI\nLC\nVALID\nCL" | roman2int
 9
 10
 40
@@ -533,7 +569,7 @@ $ echo -e "IX\nX\nXL\nMCMIV\nXLIX\nCDXC\nNONVALID\nIXI\nLC\nVALID\nCL" | roman2i
 490
 150
 
-$ echo -e "IX\nX\nXL\nMCMIV\nXLIX\nCDXC\nNONVALID\nIXI\nLC\nVALID\nCL" 
+$ echo -e "IX\nX\nXL\nMCMIV\nXLIX\nCDXC\nNONVALID\nIXI\nLC\nVALID\nCL"
 IX
 X
 XL
@@ -550,7 +586,7 @@ CL
 
 ### multicollsortroman
 ```bash
-$ cat test/multisortcoll-rom.csv 
+$ cat test/multisortcoll-rom.csv
 Name,CategoryId,Price,Stock
 Slotted,V,0.65,5.4
 Phillips,II,0.42,7.4

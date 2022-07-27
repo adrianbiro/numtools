@@ -1,9 +1,9 @@
 
 # numtools - Goals for this project
 
-This outlines criteria that the numtools should eventually meet. 
+This outlines criteria that the numtools should eventually meet.
 
-## All tools 
+## All tools
 
  * The goal of this set of tools is to connect a few missing components in the pipeline not to reinvent the wheel.
     * It is more convenient to quickly examine data and make some rough estimates on the the CLI, than it is to start Postgres, etc.
@@ -19,13 +19,13 @@ This outlines criteria that the numtools should eventually meet.
 |`-V` | -- Be verbose |
 
 
-## Individual program goals 
+## Individual program goals
 
 [usage](./usage.md)
 
 
 
-### normalize 
+### normalize
 * `Min-Max` Converts each data value to a value eg. between 0 and 100. `New value = (value – min) / (max – min) * 100`
 * `Mean Normalization` Scales values such that the mean of all values is 0 and std. dev. is 1. `New value = (value – mean) / (standard deviation)`
 
@@ -33,6 +33,9 @@ This outlines criteria that the numtools should eventually meet.
 generalize Awk function
 * `-v time`
 * `-v perc`
+
+### num2ex
+* number to scientific notation
 -----------------------------------------------------
 # somehow DONE
 
@@ -53,18 +56,18 @@ Get the average of the numbers on the line.
 * `-a` or `--all` Compute the average from all numbers, not the average per line.
 
 ### [selectnum](./usage.md "## selectnum")
-Selects numbers in range 
+Selects numbers in range
 * `2 90` in range
-* `- 90` for no limit on bottom 
-* `2 -` from 2 no top limit 
-* `- -` no limit 
+* `- 90` for no limit on bottom
+* `2 -` from 2 no top limit
+* `- -` no limit
 
 
 ### [splitnum](./usage.md "## splitnum")
-Don't process complete numbers, process each numeric character individually. 
+Don't process complete numbers, process each numeric character individually.
 
 ### [numcleaner](./usage.md "## numcleaner")
-It will preprocess data for other utilities from files or stdin and send them to stdout. It extracts numbers from text and preserve lines. 
+It will preprocess data for other utilities from files or stdin and send them to stdout. It extracts numbers from text and preserve lines.
 * `-F","` for field separator. Default is space.
 * `OFS=","` for output field separator Default is space.
 
@@ -83,7 +86,7 @@ Rounds numbers to the closest integer and prints them out on separate lines.
 
 ### [unit](./usage.md "## unit")
 Specify and append unit with unit as an argument.
-* `-v unit=unit` 
+* `-v unit=unit`
 * Or just unit `%` as an argument.
 
 ### [sumallcol](./usage.md "## sumallcol")
@@ -95,8 +98,8 @@ Calculate percent ratio of total. Expects one number per line
 
 ### [interval](./usage.md "## interval")
 Interval will calculate and print the numeric interval between one numberand the next one in an input stream. Default output with no argument is just this interval chage.
-* `-p`  To get just percent change. 
-* `-V`  To get full overwiev of numbers with interval and percent change. 
+* `-p`  To get just percent change.
+* `-V`  To get full overwiev of numbers with interval and percent change.
 
 ### [median](./usage.md "## median")
 Median will calculate the median value from a provided list. Default output with no argument is Median.
